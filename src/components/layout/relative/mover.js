@@ -1,5 +1,25 @@
 const contains = (list, item) => list.indexOf(item) >= 0
 
+const createFirst = keys => (item) => {
+  // first goes to top
+  items = items.map(item => {
+    item.index = contains(keys.first, item.name)
+      ? 0
+      : item.index
+    return item
+  })
+}
+
+const createLast = keys => (item) => {
+  // last goes to bottom
+  items = items.map(item => {
+    item.index = contains(keys.last, item.name)
+      ? item.index
+      : 9999
+    return item
+  })
+}
+
 export const createMover = ({items, keys}) => {
   const $before = (item, target) => {
     item = items.index = target.index - 1
@@ -9,25 +29,8 @@ export const createMover = ({items, keys}) => {
     item = items.index = target.index + 1
   }
 
-  const first = (item) => {
-    // first goes to top
-    items = items.map(item => {
-      item.index = contains(keys.first, item.name)
-        ? 0
-        : item.index
-      return item
-    })
-  }
-
-  const last = (item) => {
-    // last goes to bottom
-    items = items.map(item => {
-      item.index = contains(keys.last, item.name)
-        ? item.index
-        : 9999
-      return item
-    })
-  }
+  const first = createFirst(keys)
+  const last = createLast(keys)
 
   const before = (item) => {
     item.before && $before(item, item.before)
@@ -54,5 +57,14 @@ export const createMover = ({items, keys}) => {
       .map(shuffle)
   }
 
-  return shuffleAll(items)
+  return {
+    shuffleAll,
+    shuffle,
+    reArrange,
+    firstAndLast,
+    before,
+    after,
+    first,
+    last
+  }
 }
