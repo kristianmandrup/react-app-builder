@@ -1,5 +1,9 @@
-const error = (msg) => {
+export const error = (msg) => {
   throw new Error(msg)
+}
+
+export const warn = (msg) => {
+  console.warn(msg)
 }
 
 export const str = (value) => JSON.stringify(value, null, 2)

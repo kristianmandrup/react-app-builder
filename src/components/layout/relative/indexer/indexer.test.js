@@ -1,7 +1,6 @@
 import context from 'jest-plugin-context';
-import {random} from './utils'
 import {createIndexer} from './indexer'
-import {items, $items} from './_setup'
+import {items, $items, keys, methods} from './_setup'
 
 describe('createIndexer', () => {
   const indexer = createIndexer({items: items.map, keys})
@@ -13,19 +12,21 @@ describe('createIndexer', () => {
   describe('indexer', () => {
     describe('first', () => {
       test('put item in first position: -1', () => {
-        const item = $items.last
-        indexer.first({
+        const item = $items.map.first
+        console.log({item})
+        const indexed = indexer.first({
           ...item,
           first: true
         })
+        console.log({item, indexed})
         expect(item.index).toBe(-1)
       })
     })
 
     describe('last', () => {
       test('put item in last position: 999', () => {
-        const item = $items.first
-        indexer.last({
+        const item = $items.map.last
+        const indexed = indexer.last({
           ...item,
           last: true
         })
@@ -34,73 +35,81 @@ describe('createIndexer', () => {
     })
 
     describe('before', () => {
-      test('put item before other item', () => {
-        const item = $items.first
-        const oldIndex = item.index
-        indexer.before({
+      test('put item before display_name', () => {
+        const item = $items.map.first
+        const display_name = items.map.display_name
+        display_name.index = 3
+        const indexed = indexer.before({
           ...item,
-          before: 'display_item'
+          before: 'display_name'
         })
-        expect(item.index).toBeLessThan(oldIndex)
+
+        // console.log({indexed, display_name})
+        expect(indexed.index).toBeLessThan(display_name.index)
       })
     })
 
     describe('after', () => {
-      test('put item before other item', () => {
+      test('put item after display_name', () => {
         const item = $items.first
-        const oldIndex = item.index
-        indexer.before({
+        const display_name = items.map.display_name
+        display_name.index = 3
+        const indexed = indexer.after({
           ...item,
-          after: 'display_item'
+          after: 'display_name'
         })
-        expect(item.index).toBeGreaterThan(oldIndex)
+        expect(indexed.index).toBeGreaterThan(display_name.index)
       })
     })
 
     describe('reArrange', () => {
-      test('put item in last position: 999', () => {
+      test('put item before display_name', () => {
         const item = $items.first
-        const oldIndex = item.index
-        indexer.reArrange({
+        const display_name = items.map.display_name
+        display_name.index = 3
+        const indexed = indexer.reArrange({
           ...item,
-          before: 'display_item'
+          before: 'display_name'
         })
-        expect(item.index).toBeLessThan(oldIndex)
+        // console.log('reArrange', {indexed, item})
+        expect(indexed.index).toBeLessThan(display_name.index)
       })
     }),
 
     describe('firstAndLast', () => {
-      test('put item in last position: 999', () => {
-        const item = $items.first
+      test('put item in first position: -1', () => {
+        const item = $items.map.first
         const oldIndex = item.index
-        indexer.firstAndLast({
+        const indexed = indexer.firstAndLast({
           ...item,
-          last: true
+          first: true
         })
-        expect(item.index).toBeGreaterThan(oldIndex)
+        // console.log('firstAndLast', {indexed, item})
+        expect(item.index).toBe(-1)
       })
     }),
 
-    describe.only('shuffle', () => {
+    describe('shuffle', () => {
       test('put display_name in first position', () => {
-        const last = $items.last
-        indexer.shuffle(last)
-        expect(last.index).toBe(-1)
+        const item = $items.map.last
+        const indexed = indexer.shuffle({
+          ...item,
+          last: true
+        })
+        // console.log({item, indexed})
+        expect(item.index).toBe(999)
       })
     })
 
-    describe.skip('indexAll', () => {
+    describe.only('indexAll', () => {
       context('map', () => {
-        const toIndex = items.map
-        console.log({toIndex})
-
         test('moves items using relative positions', () => {
           const indexed = indexer.indexAll()
-          console.log({indexed})
+          // console.log({indexed})
 
-          expect(indexed[0].name).toBe('display_name')
-          expect(indexed[1].name).toBe('height_in_cm')
-          expect(indexed[2].name).toBe('favourite')
+          expect(indexed[0].name).toBe('height_in_cm')
+          expect(indexed[1].name).toBe('favourite')
+          expect(indexed[2].name).toBe('display_name')
         })
       })
 
@@ -109,9 +118,10 @@ describe('createIndexer', () => {
 
         test('moves items using relative positions', () => {
           const indexed = indexer.indexAll(toIndex)
-          expect(indexed[0].name).toBe('display_name')
-          expect(indexed[1].name).toBe('height_in_cm')
-          expect(indexed[2].name).toBe('favourite')
+          // console.log({indexed})
+          expect(indexed[0].name).toBe('height_in_cm')
+          expect(indexed[1].name).toBe('favourite')
+          expect(indexed[2].name).toBe('display_name')
         })
       })
     })

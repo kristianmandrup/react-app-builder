@@ -1,5 +1,5 @@
 import {normalizeMap, contains, listToMap, mapToList} from './utils'
-import {items, $items} from './_setup'
+import {items, $items, keys} from './_setup'
 
 describe('normalizeMap', () => {
   test('normalizes property map without names', () => {
@@ -22,7 +22,7 @@ describe('mapToList', () => {
   test('converts map/object to a list', () => {
     const list = mapToList(items.map)
     expect(Array.isArray(list)).toBe(true)
-    expect(list[0]).toBe()
+    expect(list[0]).toEqual({"name": "height_in_cm"})
   })
 })
 

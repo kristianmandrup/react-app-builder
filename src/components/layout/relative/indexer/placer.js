@@ -1,4 +1,11 @@
-import {isObject, contains, createResolver, error, identical} from './utils'
+import {
+  isObject,
+  contains,
+  createResolver,
+  error,
+  warn,
+  identical
+} from './utils'
 
 export const indexOn = (keys, {match, nomatch, key}) => item => {
   const placeKeys = keys[key]
@@ -7,6 +14,10 @@ export const indexOn = (keys, {match, nomatch, key}) => item => {
   const newIndex = contains(placeKeys, name)
     ? createResolver(match)(item)
     : createResolver(nomatch)(item)
+  if (!newIndex) {
+    warn(`${name} missing in ${key} keys ${placeKeys}`)
+    return item
+  }
   item.index = newIndex
   return item
 }
@@ -75,7 +86,7 @@ export const createPlaceAt = items => (item, at) => {
     return false
 
   const target = items[refName]
-  !target && error(`No such display/component ${items}`)
+  !target && error(`No such display/component ${refName}`)
 
   identical(item, target) && error(`item ${item.name} and relative layout target ${refName} cannot be the same`)
 
