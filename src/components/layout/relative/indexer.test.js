@@ -1,4 +1,5 @@
-import {createIndexer, contains, createPlacer} from './indexer'
+import context from 'jest-plugin-context';
+import {createIndexer, contains, createPlacer, place, placeAt} from './indexer'
 
 const items = {
   map: {
@@ -8,8 +9,6 @@ const items = {
   },
   list: ['height_in_cm', 'favourite', 'display_name']
 }
-
-const indexer = createIndexer({items, keys})
 
 const methods = ['first', 'last', 'before', 'after']
 
@@ -83,25 +82,75 @@ describe('createPlacer', () => {
   })
 })
 
+describe('place', () => {
+  describe('before', () => {
+    test('sets index of src < target', () => {
+      const placedBefore = place.before($items.last, $items.first)
+      expect(placedBefore.index).toBeLessThan($items.first.index)
+    })
+  })
+
+  describe('after', () => {
+    test('sets index of src < target', () => {
+      const placedAfter = place.after($items.first, $items.last)
+      expect(placedAfter.index).toBeGreaterThan($items.last.index)
+    })
+  })
+})
+
+describe('createPlaceAt', () => {
+  const placeAt = createPlaceAt(items.list)
+  test('creates function', () => {
+    expect(typeof createPlaceAt(items.list)).toBe('function')
+  })
+
+  describe('placeAt', () => {
+    test('before sets index < target', () => {
+      const placedBefore = placeAt($items.last, 'before')
+      expect(placedBefore.index).toBeLessThan($items.first.index)
+    })
+  })
+
+})
+
 describe('createIndexer', () => {
-  test('contains mover methods', () => {
+  const indexer = createIndexer({items, keys})
+
+  test('contains indexer methods', () => {
     methods.map(fn => expect(typeof indexer[fn]).toBe('function'))
   })
 
-  describe('mover', () => {
+  describe('indexer', () => {
     describe('first', () => {
-      test('moves display_name into first position', () => {
-        const display_name = items.list[2]
-        mover.first(display_name)
-        expect(display_name.index).toBe(-1)
+      test('put display_name in first position', () => {
+        const last = $items.last
+        mover.first(last)
+        expect(last.index).toBe(-1)
       })
     })
 
-    describe('relative', () => {
-      test('moves items using relative positions', () => {
-        expect(moved[0].name).toBe('display_name')
-        expect(moved[1].name).toBe('height_in_cm')
-        expect(moved[2].name).toBe('favourite')
+    describe('indexAll', () => {
+      context('map', () => {
+        const toIndex = items.map
+
+        test('moves items using relative positions', () => {
+          const indexed = indexer.indexAll(toIndex)
+
+          expect(indexed[0].name).toBe('display_name')
+          expect(indexed[1].name).toBe('height_in_cm')
+          expect(indexed[2].name).toBe('favourite')
+        })
+      })
+
+      context('list', () => {
+        const toIndex = items.list
+
+        test('moves items using relative positions', () => {
+          const indexed = indexer.indexAll(toIndex)
+          expect(indexed[0].name).toBe('display_name')
+          expect(indexed[1].name).toBe('height_in_cm')
+          expect(indexed[2].name).toBe('favourite')
+        })
       })
     })
   })

@@ -28,9 +28,7 @@ export const createPlacer = (items, keys) => ({
   }
 })
 
-const createLast = keys => (item) => {}
-
-const place = {
+export const place = {
   before: (item, target) => {
     item.index = target.index - 1
     return item
@@ -41,7 +39,7 @@ const place = {
   }
 }
 
-const placed = (item, at) => {
+export const createPlaceAt = items => (item, at) => {
   const refName = item[at]
   if (!refName) 
     return
@@ -52,11 +50,10 @@ const placed = (item, at) => {
   return place[at](item, items[refName])
 }
 
-const before = (item) => placed(item, 'before')
-
-const after = (item) => placed(item, 'after')
-
 export const createMover = ({items, keys}) => {
+  const placeAt = createPlaceAt(items)
+  const before = (item) => placeAt(item, 'before')
+  const after = (item) => placeAt(item, 'after')
 
   const placer = createPlacer(items, keys)
   const {first, last} = placer
@@ -64,12 +61,12 @@ export const createMover = ({items, keys}) => {
   const reArrange = (item) => before(item) || after(item)
   const shuffle = (item) => firstAndLast(item) || reArrange(item)
 
-  const shuffleAll = (items) => items
+  const indexAll = (items) => items
     .map(shuffle)
     .map(shuffle)
 
   return {
-    shuffleAll,
+    indexAll,
     shuffle,
     reArrange,
     firstAndLast,

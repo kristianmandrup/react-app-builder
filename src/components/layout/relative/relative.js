@@ -1,4 +1,5 @@
 // use before, after, first, last y: {   before: 'x' }, x: {   first: true }
+import {createIndexer} from './indexer'
 
 export const matcher = (layout) => test => Object
   .keys(layout)
@@ -7,13 +8,13 @@ export const matcher = (layout) => test => Object
     return test(obj)
   })
 
-import {createIndexer} from './indexer'
+const createKeyOf = key => (obj) => obj[key]
 
-export const keysOf = obj => ({
+export const createKeysOf = obj => ({
   // all layout objects that have a first key
-  first: match((obj) => obj.first),
+  first: match(createKeyOf('first')),
   // all layout objects that have a last key
-  last: match((obj) => obj.last)
+  last: match(createKeyOf('last'))
 })
 
 export const sortList = (list) => list.sort((a, b) => b.index - a.index)
@@ -26,7 +27,7 @@ export const sortMap = (obj) => {
 export const relative = ({layout, items}) => {
   items = items.map((item, index) => item.index = index * 50)
   const match = matcher(layout)
-  const keys = keysOf(obj)
+  const keys = createKeysOf(obj)
   const indexer = createIndexer({items, keys})
   const indexedItems = move()
 
