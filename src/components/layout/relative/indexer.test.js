@@ -1,16 +1,19 @@
-import {buildAll} from './build'
+import {createIndexer} from './indexer'
 import {types} from './types'
 
-describe('createMover', () => {
-  const items = ['height_in_cm', 'favourite', 'display_name']
+describe('createIndexer', () => {
+  const items = {
+    map: {
+      height_in_cm: {},
+      favourite: {},
+      display_name: {}
+    },
+    list: ['height_in_cm', 'favourite', 'display_name']
+  }
 
-  const mover = createMover(items, keys)
+  const indexer = createIndexer({items, keys})
 
   const methods = ['first', 'last', 'before', 'after']
-
-  test('contains mover methods', () => {
-    methods.map(fn => expect(typeof mover[fn]).toBe('function'))
-  })
 
   const layout = {
     empty: {
@@ -31,12 +34,16 @@ describe('createMover', () => {
     }
   }
 
+  test('contains mover methods', () => {
+    methods.map(fn => expect(typeof indexer[fn]).toBe('function'))
+  })
+
   describe('mover', () => {
     describe('first', () => {
       test('moves display_name into first position', () => {
-        const display_name = items[2]
+        const display_name = items.list[2]
         mover.first(display_name)
-        expect(moved[0].name).toBe('display_name')
+        expect(display_name.index).toBe(-1)
       })
     })
 
