@@ -11,7 +11,10 @@ export const createAddStyle = ({types, keys, styles}) => (acc, key) => {
   return acc
 }
 
-export const addStyles = (styles, types) => {
+export const addStyles = ({
+  styles = {},
+  types = {}
+}) => {
   const keys = Object.keys(types)
-  return keys.reduce(addStyle({types, keys, styles}), {})
+  return keys.reduce(createAddStyle({types, keys, styles}), {})
 }

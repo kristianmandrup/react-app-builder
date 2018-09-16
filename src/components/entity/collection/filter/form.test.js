@@ -1,6 +1,6 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import {createForm, createFilterForm} from './controls';
+import {createForm, createFilterForm} from './form';
 import {configure} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 

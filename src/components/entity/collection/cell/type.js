@@ -36,9 +36,9 @@ function determineType(value) {
   return number(value) || number(value) || boolean(value) || array(value) || object(value) || types.default
 }
 
-export const getType(value) {
-  return prop.$type || determineType(value)
-}
+const isObject = (value) => Object(value) === value
+
+export const getType = (value) => (isObject(value) && value.$type) || determineType(value)
 
 export const type = {
   get: getType

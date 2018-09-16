@@ -1,9 +1,9 @@
 import React from 'react';
-import {map} from './cell'
+import {map} from './map'
 import {getType} from './type'
 
 const components = {
-  cellDisplay = ({type, name}) => {
+  cellDisplay: ({type, name}) => {
     return map.named[name] || cellItemMap.generic[type]
   }
 }

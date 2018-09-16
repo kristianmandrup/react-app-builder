@@ -1,6 +1,21 @@
 import React from 'react';
 import {Controls} from './controls'
 
+const person = {
+  properties: {
+    name: {
+      type: 'string'
+    },
+    age: {
+      type: 'integer'
+    }
+  }
+}
+
+const types = {
+  person
+}
+
 const createInitialState = (type) => {
   const schema = types[type]
   return Object

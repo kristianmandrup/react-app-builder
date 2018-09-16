@@ -3,7 +3,7 @@ import {Display} from './display'
 import {type} from './type'
 
 export const cell = {
-  Item,
+  map,
   Display,
   type
 }

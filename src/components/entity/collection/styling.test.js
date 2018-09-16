@@ -1,10 +1,16 @@
 import React from 'react'
-import {addStyles, addStyle} from './styling'
+import {addStyles, createAddStyle} from './styling'
 
 const component = (props) => {
   const {classes} = props
   console.log({classes});
   return (<div className={classes.main}/>)
+}
+
+const styles = {
+  main: {
+    color: 'red'
+  }
 }
 
 const types = {
@@ -15,10 +21,14 @@ const types = {
 
 const person = types.person
 
-describe('addStyle', () => {
-  test('it can decorate component with styles', () => {
-    const styledCmp = addStyle({styles, types: person})
-    expect(styledCmp({}, 'string')).toBeDefined()
+describe('createAddStyle', () => {
+  test('it create a reducer function that can decorate a component with styles', () => {
+    const styledCmp = createAddStyle({styles, types: person})
+
+    // use empty accumulator
+    const reduced = styledCmp({}, 'string')
+
+    expect(reduced['string']).toBeDefined()
   })
 })
 
@@ -26,6 +36,7 @@ describe('addStyles', () => {
   test('it can decorate component with styles', () => {
     const styledCmps = addStyles({styles, types: person})
     const styledCmp = styledCmps['string']()
-    expect(styledCmp()).toBeDefined()
+    const props = {}
+    expect(styledCmp(props)).toBeDefined()
   })
 })

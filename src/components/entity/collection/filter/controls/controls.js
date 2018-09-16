@@ -1,6 +1,12 @@
 import React from 'react';
-import {addStyles} from './styling';
+import {addStyles} from '../../styling';
 import {controlMap} from './map'
+
+const styles = {
+  main: {
+    color: 'red'
+  }
+}
 
 export const Controls = (props) => {
   return props.map(prop => {
