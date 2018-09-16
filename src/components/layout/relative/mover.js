@@ -36,9 +36,23 @@ export const createMover = ({items, keys}) => {
     item.after && $after(item, item.after)
   }
 
-  const all() {
-    first(item) || last(item) || before(item) || after(item)
+  const firstAndLast = (item) => {
+    return first(item) || last(item)
   }
 
-  return all
+  const reArrange = (item) => {
+    return before(item) || after(item)
+  }
+
+  const shuffle = (item) => {
+    return firstAndLast(item) || reArrange(item)
+  }
+
+  const shuffleAll = (items) => {
+    return items
+      .map(shuffle)
+      .map(shuffle)
+  }
+
+  return shuffleAll(items)
 }
