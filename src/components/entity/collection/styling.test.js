@@ -8,20 +8,24 @@ const component = (props) => {
 }
 
 const types = {
-  string: component
+  person: {
+    string: component
+  }
 }
+
+const person = types.person
 
 describe('addStyle', () => {
   test('it can decorate component with styles', () => {
-    const styledCmp = addStyle(styles, component)
-    expect(styledCmp()).toBe()
+    const styledCmp = addStyle({styles, types: person})
+    expect(styledCmp({}, 'string')).toBeDefined()
   })
 })
 
 describe('addStyles', () => {
   test('it can decorate component with styles', () => {
-    const styledCmps = addStyles(styles, types)
+    const styledCmps = addStyles({styles, types: person})
     const styledCmp = styledCmps['string']()
-    expect(styledCmp()).toBe()
+    expect(styledCmp()).toBeDefined()
   })
 })

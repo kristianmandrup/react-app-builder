@@ -1,12 +1,12 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import {Controls} from './Controls';
+import {controls} from './controls';
 import {configure} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 configure({adapter: new Adapter()});
 
-test('Filter Controls', () => {
+test('Controls', () => {
   // Render controls
   const controls = shallow(<Controls/>);
 

@@ -2,7 +2,7 @@ import React from 'react';
 import {addStyles} from './styling';
 import {controlMap} from './map'
 
-const FilterControls = (props) => {
+export const Controls = (props) => {
   return props.map(prop => {
     const type = prop.$type
     const FilterControl = controlMap[type]

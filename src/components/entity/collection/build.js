@@ -1,3 +1,3 @@
-import {createFilterForm} from './collection/filter'
+import {createFilterForm} from './filter'
 
-export const build = (type) => ({filter: createFilterForm(type)}
+export const build = (type) => ({filter: createFilterForm(type)})

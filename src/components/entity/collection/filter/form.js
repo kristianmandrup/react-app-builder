@@ -1,6 +1,5 @@
 import React from 'react';
-import {FilterControls} from './controls/controls'
-import {formatMs} from '@material-ui/core/styles/transitions';
+import {Controls} from './controls'
 
 const createInitialState = (type) => {
   const schema = types[type]
@@ -14,7 +13,7 @@ const createInitialState = (type) => {
 
 }
 
-const createForm = (type) => ({initialState: createInitialState(type)})
+export const createForm = (type) => ({initialState: createInitialState(type)})
 
 const forms = {
   person: {
@@ -45,7 +44,7 @@ export const createFilterForm = (type) => {
       const filter = formFor(type).filter || {}
       return (
         <form className={classes.container} {...filter}>
-          <FilterControls {...this.state}/>
+          <Controls {...this.state}/>
         </form>
       )
     }

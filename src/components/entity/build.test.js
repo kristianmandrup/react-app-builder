@@ -2,13 +2,13 @@ import {buildAll} from './build'
 import {types} from './types'
 
 describe('buildAll', () => {
-  const built = build(types.person)
+  const built = buildAll(types.person)
 
   test('builds collection', () => {
-    expect(built.collection).toBe()
+    expect(built.collection.person).toBeDefined()
   })
 
   test('built collection has a filter', () => {
-    expect(built.collection.filter).toBe()
+    expect(built.collection.person.filter).toBeDefined()
   })
 })

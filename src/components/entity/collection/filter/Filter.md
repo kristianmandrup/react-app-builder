@@ -1,5 +1,16 @@
 # Filter
 
+- Field for each element (auto-generated depending on format)
+
+## Generic mappings
+
+- Boolean : On/Off Slider
+- String: Text Input
+- Integer: Text Input with some numeric validation
+- Integer enum (limites range) : Range slider, Select
+
+## How?
+
 Filter consists of a Form that displays the filtering options for the particular entity.
 
 The Filter form is:
@@ -9,6 +20,14 @@ The Filter form is:
 
 You can create and plug-in your own component mappings (or generators) as needed
 
-## Form
+## Form mappings
 
-TODO
+Generic type->control mappings for this example app (using _Material UI_) are as follows:
+
+```js
+forms.filter.generic = {
+  string: TextField,
+  number: Slider,
+  boolean: Switch
+};
+```

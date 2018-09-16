@@ -1,4 +1,4 @@
 export {map}
 from './map'
-export {controls}
+export {controls, Controls}
 from './controls'

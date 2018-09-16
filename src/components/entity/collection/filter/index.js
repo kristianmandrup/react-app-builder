@@ -1,6 +1,4 @@
-export {FilterControlMap}
-from './controls/map'
-export {FilterForm}
+export {map, controls}
+from './controls'
+export {createFilterForm}
 from './form'
-export {FilterControls}
-from './controls/controls'

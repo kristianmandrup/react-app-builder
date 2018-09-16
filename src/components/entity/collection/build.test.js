@@ -1,5 +1,4 @@
-import {map} from './type'
-
+import {build} from './build'
 // type
 const person = {
   properties: {
@@ -16,6 +15,6 @@ describe('build', () => {
   const built = build(person)
 
   test('builds filter', () => {
-    expect(built.filter).toBe()
+    expect(built.filter).toBeTruthy()
   })
 })
