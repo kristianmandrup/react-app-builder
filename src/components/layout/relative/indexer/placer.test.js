@@ -1,6 +1,6 @@
-import {createPlacer} from './placer'
+import {createPlacer, createPlaceAt, place} from './placer'
 import {listToMap} from './utils'
-import {items, $items} from './_setup'
+import {items, $items, keys, decorate} from './_setup'
 
 describe('createPlacer', () => {
   describe('first', () => {

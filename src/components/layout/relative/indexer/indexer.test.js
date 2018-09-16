@@ -1,17 +1,7 @@
 import context from 'jest-plugin-context';
 import {random} from './utils'
 import {createIndexer} from './indexer'
-
-const random = (max) => Math.floor(Math.random() * max)
-
-const decorate = {
-  randomIndexes: (map) => Object
-    .keys(map)
-    .reduce((acc, key) => {
-      map[key].index = random(100)
-      return map
-    }, {})
-}
+import {items, $items} from './_setup'
 
 describe('createIndexer', () => {
   const indexer = createIndexer({items: items.map, keys})

@@ -2,8 +2,8 @@ const error = (msg) => {
   throw new Error(msg)
 }
 
-const str = (value) => JSON.stringify(value, null, 2)
-const identical = (a, b) => a === b
+export const str = (value) => JSON.stringify(value, null, 2)
+export const identical = (a, b) => a === b
 
 export const isObject = (value) => Object(value) === value
 
@@ -36,7 +36,7 @@ export const mapToList = (map) => Object
     return acc
   }, [])
 
-const createResolver = value => item => {
+export const createResolver = value => item => {
   return typeof value === 'function'
     ? value(item)
     : value

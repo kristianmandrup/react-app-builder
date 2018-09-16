@@ -1,4 +1,4 @@
-import {contains, createResolver, error, identical} from './utils'
+import {isObject, contains, createResolver, error, identical} from './utils'
 
 export const indexOn = (keys, {match, nomatch, key}) => item => {
   const placeKeys = keys[key]
@@ -38,8 +38,6 @@ export const createPlacer = (items, keys) => ({
       .map(mapper)
   }
 })
-
-import {isObject} from './utils'
 
 const createInvalidObj = method => (value, label) => {
   if (!isObject(value)) {
