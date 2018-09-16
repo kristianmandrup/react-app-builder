@@ -39,3 +39,7 @@ function determineType(value) {
 export const getType(value) {
   return prop.$type || determineType(value)
 }
+
+export const type = {
+  get: getType
+}

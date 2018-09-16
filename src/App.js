@@ -4,7 +4,6 @@ import {TopBar, DisplayMatches, FilterForm} from './components'
 
 import createDb from './database/db'
 const {matches} = createDb()
-console.log(matches)
 
 export const App = () => {
   return (

@@ -1,6 +1,7 @@
 import React from 'react';
 import {addStyles} from '../styling';
 
+// TODO: to be overridden by global app config
 const styles = {
   root: {
     width: '100%',
@@ -33,6 +34,7 @@ const types = {
 
 const generic = addStyles(styles, types)
 
+// TODO: to be "injected" by global app configuration
 const names = {
   age: (props) => {
     const {classes, type, value} = props
@@ -49,7 +51,7 @@ const names = {
 
 const named = addStyles(styles, names)
 
-export const cellItemMap = {
+export const map = {
   generic,
   named
 }
