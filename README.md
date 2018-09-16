@@ -16,4 +16,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## App generator
 
-The Filter form and collection display is generated, based on the entity schema and using a declarative app specification with mappings to components to be used for each entity field given a particular context.
+Status: _WIP_
+
+The Filter form and collection display can be generated, based on the entity schema and using a declarative app specification with mappings to components to be used for each entity field given a particular context.
+
+[App generator](./src/app-generator/App-Generator.md)
