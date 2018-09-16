@@ -44,9 +44,9 @@ Ordered properties for display
 
 ```js
 person.item.data.ordered = [
-  { height_in_cm: 157 },
-  { display_name: "mike" },
-  { favourite: true }
+  { height_in_cm: 157, index: -1 },
+  { display_name: "mike", index: 0 },
+  { favourite: true, index: 999 }
 ];
 ```
 
