@@ -20,6 +20,12 @@ function boolean(value) {
     : undefined
 }
 
+function string(value) {
+  return typeof value === 'string'
+    ? 'string'
+    : undefined
+}
+
 function array(value) {
   return Array.isArray(value)
     ? 'array'
@@ -33,7 +39,7 @@ function object(value) {
 }
 
 function determineType(value) {
-  return number(value) || number(value) || boolean(value) || array(value) || object(value) || types.default
+  return string(value) || boolean(value) || integer(value) || number(value) || boolean(value) || array(value) || object(value) || types.default
 }
 
 const isObject = (value) => Object(value) === value

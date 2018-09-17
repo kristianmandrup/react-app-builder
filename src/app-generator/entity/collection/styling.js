@@ -16,5 +16,6 @@ export const addStyles = ({
   types = {}
 }) => {
   const keys = Object.keys(types)
-  return keys.reduce(createAddStyle({types, keys, styles}), {})
+  const reducer = createAddStyle({types, keys, styles})
+  return keys.reduce(reducer, {})
 }
