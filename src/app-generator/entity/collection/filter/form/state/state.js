@@ -6,7 +6,7 @@ export const createSchemaResolver = ({entities}) => ({name}) => {
   return schema.properties || schema
 }
 
-const createInitialStateFactory = ({entities, formTypes}) => {
+export const createInitialStateFactory = ({entities, formTypes}) => {
   !isObject(entities) && error('createInitialState: entities must be an object')
   !isObject(formTypes) && error('createInitialState: formTypes must be an object')
 

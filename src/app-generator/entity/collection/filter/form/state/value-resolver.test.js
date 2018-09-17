@@ -1,5 +1,6 @@
-import {person as schema} from './_setup/config'
+import {person} from './_setup/config'
 import {formTypes} from './_setup/config'
+import {createTypeValueResolver, resolvePropType, createValueResolver} from './value-resolver'
 
 describe('resolvePropType', () => {
   test('resolves via .type', () => {
@@ -31,6 +32,7 @@ describe('createTypeValueResolver', () => {
 
 describe('createValueResolver', () => {
   test('resolves value for schema key via correct type resolver', () => {
+    const schema = person.properties
     const resolveValue = createValueResolver({schema, formTypes})
     const key = 'age'
     const value = resolveValue(key)

@@ -20,3 +20,5 @@ export const warn = (msg) => {
 }
 
 export const str = (value) => JSON.stringify(value, null, 2)
+
+export const isObject = (value) => Object(value) === value

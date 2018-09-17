@@ -3,9 +3,15 @@
 
 const midRange = ({min, max}) => Math.round((max - min) / 2)
 
-const number = (schemaProp) => (schemaProp.min
-  ? midRange(schemaProp)
-  : 0)
+const isNumber = (value) => !isNaN(value)
+
+const validMinMax = (propSchema = {}) => isNumber(propSchema.min) && isNumber(propSchema.max)
+
+const number = (propSchema = {}) => {
+  return validMinMax(propSchema)
+    ? midRange(propSchema)
+    : 0
+}
 
 export const formTypes = {
   string: '',
