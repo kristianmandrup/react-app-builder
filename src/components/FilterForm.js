@@ -27,14 +27,11 @@ export class CFilterForm extends React.Component {
   handleChange = (event, value) => {
     event.preventDefault()
     const key = [event.target.name]
-    console.log({event, key, value})
-
     this.setState({[key]: value});
   }
 
   render() {
     const {classes} = this.props || {}
-    console.log({props: this.props})
     const {display_name, height_in_cm, favourite} = this.state
 
     return (

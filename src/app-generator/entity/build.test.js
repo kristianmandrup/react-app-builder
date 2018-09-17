@@ -1,8 +1,8 @@
 import {buildAll} from './build'
-import {types} from './types'
+import {formTypes, forms, entities} from './collection/filter/form/state/_setup/config'
 
 describe('buildAll', () => {
-  const built = buildAll(types.person)
+  const built = buildAll({entities, formTypes, forms})
 
   test('builds collection', () => {
     expect(built.collection.person).toBeDefined()

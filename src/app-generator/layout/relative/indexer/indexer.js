@@ -6,8 +6,6 @@ export const createIndexer = ({items, keys}) => {
   const before = (item) => placeAt(item, 'before')
   const after = (item) => placeAt(item, 'after')
 
-  console.log('createIndexer', {items, keys})
-
   const placer = createPlacer(items, keys)
   const {first, last} = placer
   const firstAndLast = (item) => {
@@ -27,7 +25,6 @@ export const createIndexer = ({items, keys}) => {
     : items
 
   const listToIndex = mapToList(normalizeMap(itemsMap))
-  console.log({listToIndex})
 
   const indexAll = () => listToIndex
     .map(shuffle)

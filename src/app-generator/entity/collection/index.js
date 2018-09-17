@@ -6,5 +6,5 @@ export {Container}
 from './container'
 export {Filter}
 from './filter'
-export {build}
+export {buildFactory}
 from './build'

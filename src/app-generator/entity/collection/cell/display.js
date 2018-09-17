@@ -13,7 +13,6 @@ const components = {
 
 export const Display = ({item}) => {
   return item.map(properties => {
-    console.log({item})
     const {value} = properties
     const type = properties.type || getType(value)
     const {name} = properties

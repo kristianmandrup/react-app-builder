@@ -13,12 +13,10 @@ describe('createIndexer', () => {
     describe('first', () => {
       test('put item in first position: -1', () => {
         const item = $items.map.first
-        console.log({item})
         const indexed = indexer.first({
           ...item,
           first: true
         })
-        console.log({item, indexed})
         expect(item.index).toBe(-1)
       })
     })
@@ -43,8 +41,6 @@ describe('createIndexer', () => {
           ...item,
           before: 'display_name'
         })
-
-        // console.log({indexed, display_name})
         expect(indexed.index).toBeLessThan(display_name.index)
       })
     })
@@ -71,7 +67,6 @@ describe('createIndexer', () => {
           ...item,
           before: 'display_name'
         })
-        // console.log('reArrange', {indexed, item})
         expect(indexed.index).toBeLessThan(display_name.index)
       })
     }),
@@ -84,7 +79,6 @@ describe('createIndexer', () => {
           ...item,
           first: true
         })
-        // console.log('firstAndLast', {indexed, item})
         expect(item.index).toBe(-1)
       })
     }),
@@ -96,7 +90,6 @@ describe('createIndexer', () => {
           ...item,
           last: true
         })
-        // console.log({item, indexed})
         expect(item.index).toBe(999)
       })
     })
@@ -105,8 +98,6 @@ describe('createIndexer', () => {
       context('map', () => {
         test('moves items using relative positions', () => {
           const indexed = indexer.indexAll()
-          // console.log({indexed})
-
           expect(indexed[0].name).toBe('height_in_cm')
           expect(indexed[1].name).toBe('favourite')
           expect(indexed[2].name).toBe('display_name')
@@ -118,7 +109,6 @@ describe('createIndexer', () => {
 
         test('moves items using relative positions', () => {
           const indexed = indexer.indexAll(toIndex)
-          // console.log({indexed})
           expect(indexed[0].name).toBe('height_in_cm')
           expect(indexed[1].name).toBe('favourite')
           expect(indexed[2].name).toBe('display_name')

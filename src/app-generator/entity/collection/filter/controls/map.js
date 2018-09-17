@@ -20,7 +20,6 @@ const string = (props) => {
   const {name, label, type, value, handleChange} = props
   const classes = props.classes || {}
   const displayLabel = label || humanize(name)
-  // console.log('string', {name, label, displayLabel, classes, value})
   return (<TextField
     id={name}
     name={name}

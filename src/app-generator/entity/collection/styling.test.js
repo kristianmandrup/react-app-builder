@@ -3,7 +3,6 @@ import {addStyles, createAddStyle} from './styling'
 
 const component = (props) => {
   const {classes} = props
-  console.log({classes});
   return (<div className={classes.main}/>)
 }
 
