@@ -51,7 +51,8 @@ export const types = {
   string: valueDisplay,
   integer: valueDisplay,
   number: valueDisplay,
-  boolean: valueDisplay
+  boolean: valueDisplay,
+  default: valueDisplay
 }
 
 export const generic = addStyles({styles, types})

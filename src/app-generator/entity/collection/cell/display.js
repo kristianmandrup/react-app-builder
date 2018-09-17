@@ -2,18 +2,23 @@ import React from 'react';
 import {map} from './map'
 import {getType} from './type'
 
+const named = map.named || {}
+const generic = map.generic || {}
+
 const components = {
   cellDisplay: ({type, name}) => {
-    return map.named[name] || cellItemMap.generic[type]
+    return named[name] || generic[type] || generic.default
   }
 }
 
-const Display = ({item}) => {
-  return item.map((prop) => {
-    const type = getType(prop.value)
-    const CellDisplay = components.cellDisplay({type, name: prop.name})
+export const Display = ({item}) => {
+  return item.map(properties => {
+    console.log({item})
+    const {value} = properties
+    const type = properties.type || getType(value)
+    const {name} = properties
+    const CellDisplay = components.cellDisplay({type, name})
     // TODO: handle object and array (ie. nested display)
-
-    return <CellDisplay {...prop}/>
+    return <CellDisplay key={name} type={type} name={name} value={value}/>
   })
 }
