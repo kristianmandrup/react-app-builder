@@ -1,5 +1,7 @@
 import React from 'react';
 import {addStyles} from '../../styling'
+import {Switch, TextField} from '@material-ui/core';
+import Slider from '@material-ui/lab/Slider';
 
 const styles = {
   root: {
@@ -12,35 +14,42 @@ const styles = {
   boolean: {}
 };
 
+const humanize = (str) => str
+
 const string = (props) => {
-  const {name, value, handleChange, classes} = props
+  const {name, label, type, value, handleChange} = props
+  const classes = props.classes || {}
+  const displayLabel = label || humanize(name)
+  // console.log('string', {name, label, displayLabel, classes, value})
   return (<TextField
     id={name}
     name={name}
-    label="Name"
+    label={displayLabel}
     aria-labelledby="label"
     className={classes.string}
-    value={display_name}
-    onChange={this.handleChange}
+    value={value}
+    onChange={handleChange}
     margin="normal"/>)
 }
 
 const number = (props) => {
   const {name, value, handleChange} = props
+  const classes = props.classes || {}
   return (<Slider
     id={name}
     name={name}
     className={classes.number}
-    value={height_in_cm}
+    value={value}
     aria-labelledby="label"
     onChange={handleChange}/>)
 }
 
 const boolean = (props) => {
   const {name, value, handleChange, layout} = props
+  const classes = props.classes || {}
   const color = (layout && layout.color) || 'primary'
   return (<Switch
-    name={props.name}
+    name={name}
     aria-labelledby="label"
     className={classes.string}
     checked={value}
@@ -56,7 +65,7 @@ const types = {
   default: string
 }
 
-const map = addStyles(styles, types)
+const map = addStyles({styles, types})
 
 export const controlMap = (type) => {
   return map[type] || map.default

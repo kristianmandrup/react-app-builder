@@ -1,7 +1,5 @@
 import React from 'react';
-// import Typography from '@material-ui/core/Typography'
 import {withStyles} from '@material-ui/core/styles';
-// import {Slider, Switch, TextField} from '@material-ui/core';
 import {Switch, TextField} from '@material-ui/core';
 import Slider from '@material-ui/lab/Slider';
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import {addStyles} from '../../styling';
 import {controlMap} from './map'
+import {mapToList, error} from '../../utils'
 
 const styles = {
   main: {
@@ -8,11 +9,13 @@ const styles = {
   }
 }
 
-export const Controls = (props) => {
-  return props.map(prop => {
-    const type = prop.$type
-    const FilterControl = controlMap[type]
-    return (<FilterControl value={prop} type={prop.type}/>)
+export const DisplayControls = ({item}) => {
+  !item && error('DisplayControls: must take an item (entity value) to render filter controls for')
+  return mapToList(item).map(prop => {
+    const {name, type, value} = prop
+    const FilterControl = controlMap(type)
+    !FilterControl && error(`DisplayControls: unable to find Filter control for ${type}`)
+    return (<FilterControl key={name} name={name} value={value} type={type}/>)
   })
 }
 
