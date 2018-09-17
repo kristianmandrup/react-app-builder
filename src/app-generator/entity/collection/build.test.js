@@ -1,20 +1,11 @@
-import {build} from './build'
-// type
-const person = {
-  properties: {
-    name: {
-      type: 'string'
-    },
-    age: {
-      type: 'integer'
-    }
-  }
-}
+import {buildFactory} from './build'
+import {formTypes, forms, entities} from './filter/form/state/_setup/config'
 
 describe('build', () => {
-  const built = build(person)
+  const build = buildFactory(formTypes, forms, entities)
+  const built = build({name: 'person'})
 
   test('builds filter', () => {
-    expect(built.filter).toBeTruthy()
+    expect(built.filter).toBeDefined()
   })
 })

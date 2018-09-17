@@ -1,3 +1,8 @@
-import {createFilterForm} from './filter'
+import {createFilterFactory} from './filter'
 
-export const build = (type) => ({filter: createFilterForm(type)})
+export const buildFactory = ({entities, formTypes, forms}) => ({name}) => {
+  const createFilter = createFilterFactory({entities, formTypes, forms})
+  return {
+    filter: createFilter({name})
+  }
+}
