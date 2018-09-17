@@ -1,15 +1,10 @@
-export const createResolver = value => arg => {
-  return typeof value === 'function'
-    ? value(arg)
-    : value
+export const createTypeValueResolver = ({typeValue}) => arg => {
+  return typeof typeValue === 'function'
+    ? typeValue(arg)
+    : typeValue
 }
 
-export const createTypeValueResolver = (typeDef) => (propSchema) => {
-  const resolve = createResolver(typeDef)
-  return resolve(propSchema)
-}
-
-const resolvePropType = (propSchema) => propSchema.type || 'string'
+export const resolvePropType = (propSchema) => propSchema.type || 'string'
 
 export const createValueResolver = ({schema, formTypes}) => key => {
   const propSchema = schema[key]
