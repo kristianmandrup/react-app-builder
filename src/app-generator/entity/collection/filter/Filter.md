@@ -31,3 +31,11 @@ forms.filter.generic = {
   boolean: Switch
 };
 ```
+
+## Form
+
+See [Form](./form/Form.md)
+
+## Controls
+
+See [Controls](./controls/Controls.md)

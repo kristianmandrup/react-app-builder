@@ -44,3 +44,7 @@ The `state` returned will be an object, where each entry controls the value for 
 const state = createInitialState({ name: "person" });
 const { name, age } = state;
 ```
+
+## Value resolver
+
+To resolve the initial values for each of the controls, see [Value resolver](./Value-Resolver.md)

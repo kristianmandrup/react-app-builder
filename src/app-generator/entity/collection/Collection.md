@@ -8,14 +8,17 @@ A Collection is displayed using:
 
 The Container (subscribes to state and passed down to child components via props)
 
-- FormFilter
+- Filter
 - Display
 
-### FormFilter
+### Filter
 
-Displays form with filters for the collection entity
+Displays form with filters for the collection entity. Used to control which collection items to display
+
+See [Filter](./filter/Filter.md)
 
 ### Display
 
-Filters cells to show using filter received from Container
+Filters collection `items` to be displayed using `filter` received from Context API via unstated `StateContainer` (ie. `Container`)
+
 Displays a cell for each collection item. Each cell displays one or more properties of the collection (by default all).
