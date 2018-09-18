@@ -1,5 +1,5 @@
 import React from 'react';
-import {DisplayControls} from '../controls'
+import {DisplayControls} from './controls'
 import {createInitialStateFactory} from './state'
 import {Container as StateContainer, Subscribe, Provider} from 'unstated'
 import {error} from 'util';
@@ -22,7 +22,9 @@ const createFormFinder = entityFormMap => name => {
   return entityFormMap[name]
 }
 
-export const createFilter = ({config}) => {
+export const createFilter = ({
+  config = {}
+}) => {
   const {filter} = config
   const FormStateContainer = class extends StateContainer {
     constructor(props = {}) {

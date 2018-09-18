@@ -1,7 +1,7 @@
 import React from 'react';
-import {addStyles} from '../../styling';
+import {addStyles} from '../../../styling';
 import {controlMap} from './map'
-import {mapToList, error} from '../../utils'
+import {mapToList, error} from '../../../utils'
 
 const styles = {
   main: {

@@ -1,5 +1,5 @@
 import React from 'react';
-import {addStyles} from '../../styling'
+import {addStyles} from '../../../styling'
 import {Switch, TextField} from '@material-ui/core';
 import Slider from '@material-ui/lab/Slider';
 

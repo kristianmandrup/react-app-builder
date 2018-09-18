@@ -7,6 +7,35 @@ import {formTypes, entities} from './state/_setup/config'
 
 configure({adapter: new Adapter()});
 
+const values = {
+  name: 'Kristian',
+  age: 32
+}
+
+const createInputTester = (form, input) => ({name, value}) => {
+  inputs
+    .name
+    .simulate('change', {
+      target: {
+        name,
+        value
+      }
+    });
+  expect(filterForm.state('name')).toEqual(value);
+}
+
+const testInputs = ({inputs, form}) => Object
+  .keys(inputs)
+  .map(key => {
+    const testInput = createInputTester(form, inputs[key])
+    testInput({name: key, value: values[key]})
+  })
+
+const makeFilter = (name = 'person') => {
+  const createFilterForm = createFilterFormFactory({entities, formTypes})
+  return createFilter({name})
+}
+
 describe('form', () => {
   test('createForm', () => {
     const createForm = createFormFactory({entities, formTypes})
@@ -17,7 +46,7 @@ describe('form', () => {
     expect(age).toBe(60)
   })
 
-  test.only('createFilter', () => {
+  test('createFilter', () => {
     const config = {
       filter: (items) => items,
       initialState: {
@@ -32,11 +61,23 @@ describe('form', () => {
 
   test('createFilterFormFactory', () => {
     // Render controls
-    const createFilterForm = createFilterFormFactory({entities, formTypes})
-    const filter = createFilter({name: 'person'})
+    const filter = makeFilter()
     expect(filter.FormStateContainer).toBeDefined()
     expect(filter.Form).toBeDefined()
-    // const filterForm = render(<form.FilterForm/>)
-    // expect(filterForm.text()).toMatch(/age/)
+  })
+
+  test.only('form state management', () => {
+    const filter = makeFilter()
+    const filterForm = render(<filter.Form/>)
+    expect(filterForm.text()).toMatch(/age/)
+    const inputs = {
+      name: filterForm.find('form#name'),
+      age: filterForm.find('form#age')
+    }
+
+    expect(inputs.name.exists()).toBe(true)
+    expect(inputs.age.exists()).toBe(true)
+
+    testInputs({inputs, form: filterForm})
   })
 })
