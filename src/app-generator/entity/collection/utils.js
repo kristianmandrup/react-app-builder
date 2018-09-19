@@ -3,16 +3,20 @@ export const mapToList = (collection, opts = {}) => Array.isArray(collection)
   : $mapToList(collection, opts)
 
 const defaults = {
-  transform: ({key, value}) => isObject(value)
+  transform: ({key, name, value}) => isObject(value)
     ? value
-    : ({key, value})
+    : ({
+      name: name || key,
+      key: key || name,
+      value
+    })
 }
 
 const $mapToList = (map, opts = {}) => {
   const transform = opts.transform || defaults.transform
   const keys = Object.keys(map)
   return keys.reduce((acc, key) => {
-    const item = transform({key, value: map[key]})
+    const item = transform({key, name: key, value: map[key]})
     acc.push(item)
     return acc
   }, [])

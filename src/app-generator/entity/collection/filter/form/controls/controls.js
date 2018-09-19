@@ -9,10 +9,11 @@ const styles = {
   }
 }
 
-export const DisplayControls = ({item}) => {
-  !item && error('DisplayControls: must take an item (entity value) to render filter controls for')
-  const list = mapToList(item)
-  return list.map(prop => {
+export const DisplayControls = ({fields}) => {
+  !fields && error('DisplayControls: must take a fields (entity value) to render filter controls for')
+  const list = mapToList(fields)
+
+  return list.map((prop, _) => {
     const {name, type, value} = prop
     const FilterControl = controlMap(type)
     !FilterControl && error(`DisplayControls: unable to find Filter control for ${type}`)

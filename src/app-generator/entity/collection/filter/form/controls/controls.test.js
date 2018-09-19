@@ -6,7 +6,7 @@ import Adapter from 'enzyme-adapter-react-16';
 
 configure({adapter: new Adapter()});
 
-const item = [
+const fields = [
   {
     name: 'person',
     value: 'mike'
@@ -19,7 +19,7 @@ const item = [
 test('Filter Controls', () => {
   // Render controls
 
-  const controls = render(<DisplayControls item={item}/>);
+  const controls = render(<DisplayControls fields={fields}/>);
   const text = controls.text()
   const html = controls.html()
   expect(text).toMatch(/person/);

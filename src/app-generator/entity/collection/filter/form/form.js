@@ -1,38 +1,28 @@
 import React from 'react';
 import {DisplayControls} from './controls'
-import {createInitialStateFactory} from './state'
 import {Container as StateContainer, Subscribe, Provider} from 'unstated'
 import {error} from 'util';
-
-const createFormFor = ({
-  forms = {}
-}) => name => forms[name]
-
-export const createFormFactory = ({entities, formTypes, forms}) => ({name}) => {
-  const createInitialState = createInitialStateFactory({entities, formTypes})
-  const formFor = createFormFor({forms})
-  const filter = (formFor(name) || {}).filter || {}
-  return {
-    initialState: createInitialState({name}),
-    filter
-  }
-}
+import {createFormFactory} from './factory'
 
 const createFormFinder = entityFormMap => name => {
   return entityFormMap[name]
+}
+
+const createState = (state) => {
+  const FormStateContainer = class extends StateContainer {
+    constructor(state = {}) {
+      super()
+      this.state = state
+    }
+  }
+  return {state: new FormStateContainer(state), FormStateContainer}
 }
 
 export const createFilter = ({
   config = {}
 }) => {
   const {filter} = config
-  const FormStateContainer = class extends StateContainer {
-    constructor(props = {}) {
-      super()
-      this.state = props
-    }
-  }
-  const state = new FormStateContainer(config.initialState);
+  const {state} = createState({state: config.initialState});
 
   const FilterForm = class extends React.Component {
 
@@ -49,9 +39,11 @@ export const createFilter = ({
         <Provider>
           <Subscribe to={[state]}>
             {$container => {
+              const state = $container.state
+              const fields = state
               return (
                 <form className={classes.form} {...filter}>
-                  <DisplayControls item={$container.state}/>
+                  <DisplayControls fields={fields}/>
                 </form>
               )
             }}
@@ -61,13 +53,26 @@ export const createFilter = ({
     }
   }
 
-  return {FormStateContainer, Form: FilterForm}
+  return {state, Form: FilterForm}
 }
 
-export const createFilterFormFactory = ({entities, formTypes, forms}) => ({name}) => {
-  const createFormConfig = createFormFactory({entities, formTypes})
-  const config = createFormConfig({name, forms})
+const isDefined = (val) => val !== undefined
 
-  // TODO: fix new error, see unstated lib
-  return createFilter({config})
+const validateKeys = (method, opts, keys) => {
+  const missingKeys = keys.map(key => isDefined(key))
+  missingKeys && error(`${method} missing ${missingKeys} options`)
+}
+
+export const createFilterFormFactory = (opts) => {
+  validateKeys('createFilterFormFactory', opts, ['entities', 'formTypes'])
+
+  return ({name}) => {
+    const createFormConfig = createFormFactory(opts)
+    const config = createFormConfig({name})
+    // TODO: fix new error, see unstated lib
+    return {
+      filter: createFilter({config}),
+      config
+    }
+  }
 }

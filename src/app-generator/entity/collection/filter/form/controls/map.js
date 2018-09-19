@@ -17,7 +17,7 @@ const styles = {
 const humanize = (str) => str
 
 const string = (props) => {
-  const {name, label, type, value, handleChange} = props
+  const {name, label, value, handleChange} = props
   const classes = props.classes || {}
   const displayLabel = label || humanize(name)
   return (<TextField
@@ -34,6 +34,7 @@ const string = (props) => {
 const number = (props) => {
   const {name, value, handleChange} = props
   const classes = props.classes || {}
+  console.log('number: slider', {name})
   return (<Slider
     id={name}
     name={name}
